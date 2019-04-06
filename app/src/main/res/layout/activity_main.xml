@@ -21,9 +21,9 @@
         <TextView
             android:id="@+id/Rres"
             android:layout_width="fill_parent"
-            android:layout_height="55dp"
-            android:hint="Result"
+            android:layout_height="90dp"
             android:gravity="right"
+            android:hint="Result"
             android:textColor="#000"
             android:textSize="40dp"
             android:typeface="monospace" />
