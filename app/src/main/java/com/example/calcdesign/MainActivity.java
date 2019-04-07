@@ -1,6 +1,8 @@
 package com.example.calcdesign;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,8 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.ValidationResult;
 
 public class MainActivity<button> extends AppCompatActivity {
+
+//    DBHelper db;
     private Button b1;
     private Button b2;
     private Button b3;
@@ -28,15 +32,23 @@ public class MainActivity<button> extends AppCompatActivity {
     private Button bmul;
     private Button bdiv;
     private Button bdot;
+//    private Button bmod;
     private Button bequal;
     private Button bclear;
     private Button bdel;
+//    private Button bhis;
     private TextView bresult;
+//    private TextView binfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Database link
+//        db = new DBHelper(this);
+
+//        AllData();
+//        ViewAll();
 
         setupUI();
 
@@ -44,14 +56,12 @@ public class MainActivity<button> extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 bresult.setText(bresult.getText().toString()+"1");
-
             }
         });
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bresult.setText(bresult.getText().toString()+"2");
-
             }
         });
         b3.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +140,15 @@ public class MainActivity<button> extends AppCompatActivity {
 
             }
         });
+//        bmod.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (bresult == null || bresult.length() == 0)
+//                    Toast.makeText(getApplicationContext(),"Invalid Input",Toast.LENGTH_SHORT).show();
+//                else
+//                    bresult.setText(bresult.getText().toString() + "%");
+//            }
+//        });
         bmul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,9 +173,12 @@ public class MainActivity<button> extends AppCompatActivity {
         bequal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (bresult == null || bresult.length() == 0)
                     Toast.makeText(getApplicationContext(),"Invalid Input",Toast.LENGTH_SHORT).show();
                 else{
+//                    binfo.setText(bresult.getText().toString());
+
                     bresult = (TextView) findViewById(R.id.Rres);
                     // Read the expression
                     String txt = bresult.getText().toString();
@@ -164,11 +186,13 @@ public class MainActivity<button> extends AppCompatActivity {
                     Expression expression = new ExpressionBuilder(txt).build();
                     // Calculate the result and display
                     double result = expression.evaluate();
+
                     bresult.setText(Double.toString(result));
 //                    ValidationResult res = result.validate(false);
 
                 }
             }
+
         });
 
         bclear.setOnClickListener(new View.OnClickListener() {
@@ -194,6 +218,44 @@ public class MainActivity<button> extends AppCompatActivity {
 
 
     }
+
+//    private void AllData() {
+//
+//        db.insertData(binfo.getText().toString(),
+//                bresult.getText().toString());
+//
+//    }
+
+//    private void ViewAll(){
+//        bhis.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Cursor res = db.getAllData();
+//                if (res.getCount()==0){
+//                    showMessage("ERROR","Nothing Found..!!!");
+//                }
+//                StringBuffer buffer = new StringBuffer();
+//                while (res.moveToNext()){
+//                    buffer.append("ID : " + res.getString(0)+ "\n");
+//                    buffer.append("Input : " + res.getString(1)+ "\n");
+//                    buffer.append("Output : " + res.getString(2)+ "\n");
+//                }
+//                showMessage("Student Details :",buffer.toString());
+//
+//            }
+//        });
+//    }
+
+//    private void showMessage(String title, String message) {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setCancelable(true);
+//            builder.setTitle(title);
+//            builder.setMessage(message);
+//            builder.show();
+//
+//    }
+
+
     private void setupUI() {
         b1 = (Button)findViewById(R.id.btn1);
         b2 = (Button) findViewById(R.id.btn2);
@@ -211,10 +273,13 @@ public class MainActivity<button> extends AppCompatActivity {
         bmul = (Button) findViewById(R.id.btnmul);
         bdiv = (Button) findViewById(R.id.btndiv);
         bdot = (Button) findViewById(R.id.btndot);
+//        bmod = (Button) findViewById(R.id.btnmod);
         bclear = (Button) findViewById(R.id.btnc);
         bdel = (Button) findViewById(R.id.btndel);
         bequal = (Button) findViewById(R.id.btnequal);
+//        bhis = (Button) findViewById(R.id.btnhis);
         bresult = (TextView) findViewById(R.id.Rres);
+//        binfo = (TextView) findViewById(R.id.Rinfo);
 
     }
 
